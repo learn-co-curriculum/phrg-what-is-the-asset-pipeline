@@ -101,3 +101,5 @@ The asset pipeline is a lot at once and it's hard, especially debugging. Try to 
 4. Fingerprinting
 
 Finally, watch tThe DHH Keynote where he introduces the asset pipeline, it's good, promise. https://www.youtube.com/watch?v=cGdCI2HhfAU
+
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/what-is-the-asset-pipeline' title='What Is The Asset Pipeline'>What Is The Asset Pipeline</a> on Learn.co and start learning to code for free.</p>
