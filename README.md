@@ -21,7 +21,7 @@ A lot of files go into creating web applications. The CSS and JavaScript files a
 
 1. How does Rails know where things are? Is the calendar JS file in app/assets/javascripts/calendar.js or vendor/javascripts/calendar.js?
 
-2. We don't want to serve each file separately as this will make our page load very slow. It makes sense for us to maintain separate small files for readability and organization but for the browser, we'd rather smash all those small files together and load 1 JS file and 1 CS file. This process is called concatenation.
+2. We don't want to serve each file separately as this will make our page load very slow. It makes sense for us to maintain separate small files for readability and organization but for the browser, we'd rather smash all those small files together and load 1 JS file and 1 CSS file. This process is called concatenation.
 
 Let's talk about our first problem, how does Rails know where to look? The Asset Pipeline has a concept called Asset Paths for handling this. Just like in BASH where we have a PATH environment variable that is a combination of folder paths, the Asset Path is a combination of folder paths for Rails to look for assets in. Let's take a look at an example of how our Asset Path is configured.
 
@@ -115,3 +115,5 @@ The Asset Pipeline is definitely more complex then just serving assets from a pu
 Finally, definitely check out the DHH Keynote where he introduces the asset pipeline, https://www.youtube.com/watch?v=cGdCI2HhfAU. It's good, I promise.
 
 <p data-visibility='hidden'>View <a href='https://learn.co/lessons/what-is-the-asset-pipeline' title='What Is The Asset Pipeline'>What Is The Asset Pipeline</a> on Learn.co and start learning to code for free.</p>
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/what-is-the-asset-pipeline'>What Is The Asset Pipeline</a> on Learn.co and start learning to code for free.</p>
