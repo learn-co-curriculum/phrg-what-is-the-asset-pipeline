@@ -11,9 +11,9 @@
 
 ## Outline
 
-For a long time we treated Javascript and CSS as an after thought in developing web applications. All of our asset code, things like images, stylesheets, and javascript were kept in a massive folder called public and served outside of the context of our Rails application. As the web evolved, that no longer made sense.
+For a long time we treated JavaScript and CSS as an afterthought in developing web applications. All of our asset code, things like images, stylesheets, and JavaScripts were kept in a massive folder called public and served outside of the context of our Rails application. As the web evolved, that no longer made sense.
 
-The asset pipeline is the Rails answer to managing stylesheets, javascripts, and images.
+The asset pipeline is the Rails answer to managing stylesheets, JavaScripts, and images.
 
 ## Asset Paths
 
@@ -55,49 +55,44 @@ File: app/assets/javascripts/application.js
 //= require jquery
 //= require calendar
 ```
-When you include the manifest file in your layout with javascript_include_tag, the asset pipeline will look for all of the files listed here in the Asset Path. Notice how we require calendar. This file lives in `app/assets/javascripts/calendar.js` yet we only specified the name and not the full path. The Asset Pipeline will search all the configured paths for a file with the name we provided.
+When you include the manifest file in your layout with javascript_include_tag, the asset pipeline will look for all of the files listed here in the Asset Path. Notice how we require calendar. This file lives in `app/assets/javascripts/calendar.js`, yet we only specified the name and not the full path. The Asset Pipeline will search all the configured paths for a file with the name we provided.
 
-Now that we solved the question of discoverability, let's talk about concatenation. Like we discussed earlier, we don't want to load our files in the browser one by one. It's better to perform one download then a bunch of small downloads from our browser. The manifests files we configure in Rails will automatically concatenate the files listed in them into one file in production. When we are developing our application this might not be the best option since it can make debugging hard but Rails will actually serve each file separately when we are running in development mode. No need to do anything.
+Now that we solved the question of discoverability, let's talk about concatenation. Like we discussed earlier, we don't want to load our files in the browser one by one. It's better to perform one download than a bunch of small downloads from our browser. The manifests files we configure in Rails will automatically concatenate the files listed in them into one file in production. When we are developing our application this might not be the best option since it can make debugging hard but Rails will actually serve each file separately when we are running in development mode. No need to do anything.
 
 Finally, the sprocket directives that power our asset manifests will be covered in detail later.
 
 ## Preprocessing
 
-Being able to combine files and load them from a set of pre defined locations in our application is a great beneifit of the Asset Pipeline. That's only the beginning. Because we're loading assets through Rails, we can preprocess the files using popular languages like SCSS for writing better CSS and Coffeescript for cleaner JS. If you make an asset named theme.css.scss, you are telling the asset pipeline to run the file through the SCSS preprocessor before serving theme.css to the browser.  The SCSS preprocessor compiles the file into CSS. The only thing we had to do was provide the correct file extension, `.scss`, to the file and the asset pipeline knows to run it through the SCSS preprocessor.
+Being able to combine files and load them from a set of predefined locations in our application is a great beneifit of the Asset Pipeline. That's only the beginning. Because we're loading assets through Rails, we can preprocess the files using popular languages like SCSS for writing better CSS and Coffeescript for cleaner JS. If you make an asset named theme.css.scss, you are telling the asset pipeline to run the file through the SCSS preprocessor before serving theme.css to the browser. The SCSS preprocessor compiles the file into CSS. The only thing we had to do was provide the correct file extension, `.scss`, to the file and the asset pipeline knows to run it through the SCSS preprocessor.
 
 ## Fingerprinting
 
-The last benefit we will talk about is Fingerprinting, but first let's talk about the problem it helps us solve. When we serve files to the browser, they are likely to be cached to avoid downloading them again in the future.  What's caching you might ask?
+The last benefit we will talk about is Fingerprinting, but first let's talk about the problem it helps us solve. When we serve files to the browser, they are likely to be cached to avoid downloading them again in the future. What's caching you might ask?
 
-Caching something means keeping a copy of a time consuming operation locally so that you don't have to re-do the expensive operation again if the inputs and outputs are going to be exactly the same.  Cache's are usually key value stores, where the value is the answer to the expensive operation and the key is something that's unique to that item.  If you request a page from the server, and then request the same page from the server again, the quickest way to get that request fulfilled is to actually keep a copy of what you got last time locally.  Browsers cache lots of the responses they get to requests they've made by using the headers that get sent with the response.  The headers tell the browers how long the page remains "fresh" before it "expires".  Once the page has expired the browser will make a new request for the page to refresh its cache.  We say that the fastest request is the request that's not made.  It's also often said that cache invalidation is one of the two hard problems in computer science, so think carefully when you start caching things!  Caching saves bandwidth for us and provides a speed boost for the user. This is great until you change the file and you want all of your users to get the new one instead of the old version they have stored in their browser cache. But how do we let the browser know we've modified the file?  If the new version has the same name as the old version, the browser will continue using the old file from its cache. We need a way to change the filename when the contents change so that the browsers won't keep serving the old file.
+Caching something means keeping a copy of a time-consuming operation locally so that you don't have to redo the expensive operation again if the inputs and outputs are going to be exactly the same. Caches are usually key value stores, where the value is the answer to the expensive operation and the key is something that's unique to that item. If you request a page from the server and then request the same page from the server again, the quickest way to get that request fulfilled is to actually keep a copy of what you got last time locally. Browsers cache lots of the responses they get to requests they've made by using the headers that get sent with the response. The headers tell the browser how long the page remains 'fresh' before it 'expires.' Once the page has expired, the browser will make a new request for the page to refresh its cache. We say that the fastest request is the request that's not made. It's also often said that cache invalidation is one of the two hard problems in computer science, so think carefully when you start caching things! Caching saves bandwidth for us and provides a speed boost for the user. This is great until you change the file and you want all of your users to get the new one instead of the old version they have stored in their browser cache. But how do we let the browser know we've modified the file? If the new version has the same name as the old version, the browser will continue using the old file from its cache. We need a way to change the filename when the contents change so that browsers won't keep serving the old file.
 
-Fingerprinting is a technique that makes the name of a filename dependent on the contents of the file. When the file contents change, the filename is also changed. For content that is static or infrequently changed, this provides an easy way to tell whether two versions of a file are identical, even across different servers or deployment dates.
+Fingerprinting is a technique that makes the name of a filename dependent on the contents of the file. When the file's contents change, the filename also changes. For content that is static or infrequently changed, this provides an easy way to tell whether two versions of a file are identical, even across different servers or deployment dates.
 
 When a filename is unique and based on its content, HTTP headers can be set to encourage caches everywhere (whether at CDNs, at ISPs, in networking equipment, or in web browsers) to keep their own copy of the content. When the content is updated, the fingerprint will change. This will cause the remote clients to request a new copy of the content. This is known as cache busting.
 
-The technique sprockets uses for fingerprinting is to insert a hash of the content into the end of the file name. For example, take this CSS file name global.css. Sprockets will add the hash `908e25f4bf641868d8683022a5b62f54` to the end of the file name like this:
+The technique sprockets uses for fingerprinting is to append a hash of the content to the end of the file name. For example, take a CSS file named `global.css`. Sprockets will add the hash `908e25f4bf641868d8683022a5b62f54` to the end of the file name like so:
 ```
 global-908e25f4bf641868d8683022a5b62f54.css
 ```
 
-If you happened to be using an older version of Rails (Rails 2.x), the strategy used was to append a date-based query string to every asset linked with a built-in helper. This looked like this:
+If you happen to be using an older version of Rails (Rails 2.x), the strategy used to be to append a date-based query string to every asset linked with a built-in helper. This looked like so:
 ```
 global.css?1309495796
 ```
 
 The query string strategy has several disadvantages:
 
-- Not all caches will reliably cache content where the filename only differs by query parameters
-
-Steve Souders recommends, "...avoiding a querystring for cacheable resources".  5-20% of your requests will not be cached. Query strings in particular do not work at all with some CDNs for cache invalidation.
-
+- Not all caches will reliably cache content where the filename only differs by query parameters.
+    + Steve Souders recommends "avoiding a querystring for cacheable resources." 5-20% of your requests will not be cached. Query strings in particular do not work at all with some CDNs for cache invalidation.
 - The file name can change between nodes in multi-server environments.
-
-The default query string in Rails 2.x is based on the modification time of the files. When assets are deployed to a cluster, there is no guarantee that the timestamps will be the same, resulting in different values being used depending on which server handles the request.
-
-- Too much cache invalidation
-
-When static assets are deployed with each new release of code, the mtime (time of last modification) of all these files changes, forcing all remote clients to fetch them again, even when the content of those assets has not changed.
+    + The default query string in Rails 2.x is based on the modification time of the files. When assets are deployed to a cluster, there is no guarantee that the timestamps will be the same, resulting in different values being used depending on which server handles the request.
+- Too much cache invalidation.
+    + When static assets are deployed with each new release of code, the mtime (time of last modification) of all these files changes, forcing all remote clients to fetch them again, even if the content of those assets has not changed.
 
 Fingerprinting fixes all these problems by ensuring that filenames are consistent based on their content.
 
@@ -112,8 +107,6 @@ The Asset Pipeline is definitely more complex then just serving assets from a pu
 3. Preprocessing
 4. Fingerprinting
 
-Finally, definitely check out the DHH Keynote where he introduces the asset pipeline, https://www.youtube.com/watch?v=cGdCI2HhfAU. It's good, I promise.
+Finally, definitely check out the DHH Keynote where he introduces the asset pipeline, https://www.youtube.com/watch?v=cGdCI2HhfAU. It's good — I promise.
 
 <p data-visibility='hidden'>View <a href='https://learn.co/lessons/what-is-the-asset-pipeline' title='What Is The Asset Pipeline'>What Is The Asset Pipeline</a> on Learn.co and start learning to code for free.</p>
-
-<p class='util--hide'>View <a href='https://learn.co/lessons/what-is-the-asset-pipeline'>What Is The Asset Pipeline</a> on Learn.co and start learning to code for free.</p>
