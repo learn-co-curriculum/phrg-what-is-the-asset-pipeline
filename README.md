@@ -1,29 +1,27 @@
 # What Is The Asset Pipeline
 
-
 ## Objectives
 
 1. Understand the 4 main features of the asset pipeline.
-1. Identify the Asset Paths
-2. Know how Asset Manifests provide concatenation of CSS and JS.
-3. Use preprocessing languages like SASS or CoffeeScript
+2. Identify the Asset Paths
+3. Know how Asset Manifests provide concatenation of CSS and JS.
+4. Use preprocessing languages like SASS or CoffeeScript
 5. Define Asset Fingerprinting
 
 ## Outline
 
-For a long time we treated JavaScript and CSS as an afterthought in developing web applications. All of our asset code, things like images, stylesheets, and JavaScripts were kept in a massive folder called public and served outside of the context of our Rails application. As the web evolved, that no longer made sense.
+For a long time, we treated JavaScript and CSS as an afterthought in developing web applications. All of our asset code — things like images, stylesheets, and JavaScripts — was kept in a massive folder called `public` and served outside of the context of our Rails application. As the web evolved, that no longer made sense.
 
 The asset pipeline is the Rails answer to managing stylesheets, JavaScripts, and images.
 
 ## Asset Paths
 
-A lot of files go into creating web applications. The CSS and JavaScript files alone can be hard to organize. What folders do we create? What files go where? The Asset Pipeline provides an answer for this problem. We have to keep things very organized in our application but by keeping separate files and folders for each concept or unit of code, we have 2 problems.
+A lot of files go into creating web applications. The CSS and JavaScript files alone can be hard to organize. What folders do we create? Which files go where? The Asset Pipeline provides an answer for this problem. We have to keep things very organized in our application, but, by keeping separate files and folders for each concept or unit of code, we have 2 problems.
 
-1. How does Rails know where things are? Is the calendar JS file in app/assets/javascripts/calendar.js or vendor/javascripts/calendar.js?
+1. How does Rails know where things are? Is the calendar JS file in `app/assets/javascripts/calendar.js` or `vendor/javascripts/calendar.js`?
+2. We don't want to serve each file separately as this will make our page load very slow. It makes sense for us to maintain separate small files for readability and organization, but, for the browser, we'd rather smash all those small files together and load 1 JS file and 1 CSS file. This process is called concatenation.
 
-2. We don't want to serve each file separately as this will make our page load very slow. It makes sense for us to maintain separate small files for readability and organization but for the browser, we'd rather smash all those small files together and load 1 JS file and 1 CSS file. This process is called concatenation.
-
-Let's talk about our first problem, how does Rails know where to look? The Asset Pipeline has a concept called Asset Paths for handling this. Just like in BASH where we have a PATH environment variable that is a combination of folder paths, the Asset Path is a combination of folder paths for Rails to look for assets in. Let's take a look at an example of how our Asset Path is configured.
+Let's talk about our first problem: how does Rails know where to look? The Asset Pipeline has a concept called Asset Paths for handling this. Just like in BASH where we have a PATH environment variable that is a combination of folder paths, the Asset Path is a combination of folder paths for Rails to look for assets in. Let's take a look at an example of how our Asset Path is configured.
 
 ```ruby
 Rails.application.config.assets.paths =>
@@ -44,7 +42,7 @@ If we put an asset in any of these folders, we can access them via the URL '/ass
 Rails.application.config.assets.paths << "New Path"
 ```
 
-We can put assets anywhere, configure our Asset Path and access them via a single /assets URL.
+We can put assets anywhere, configure our Asset Path, and access them via a single /assets URL.
 
 ## Manifests and Concatenation
 
@@ -55,9 +53,9 @@ File: app/assets/javascripts/application.js
 //= require jquery
 //= require calendar
 ```
-When you include the manifest file in your layout with javascript_include_tag, the asset pipeline will look for all of the files listed here in the Asset Path. Notice how we require calendar. This file lives in `app/assets/javascripts/calendar.js`, yet we only specified the name and not the full path. The Asset Pipeline will search all the configured paths for a file with the name we provided.
+When you include the manifest file in your layout with the `javascript_include_tag`, the asset pipeline will look for all of the files listed in the Asset Path. Notice how we require calendar. This file lives in `app/assets/javascripts/calendar.js`, yet we only specified the name and not the full path. The Asset Pipeline will search all the configured paths for a file with the name we provided.
 
-Now that we solved the question of discoverability, let's talk about concatenation. Like we discussed earlier, we don't want to load our files in the browser one by one. It's better to perform one download than a bunch of small downloads from our browser. The manifests files we configure in Rails will automatically concatenate the files listed in them into one file in production. When we are developing our application this might not be the best option since it can make debugging hard but Rails will actually serve each file separately when we are running in development mode. No need to do anything.
+Now that we solved the question of discoverability, let's talk about concatenation. Like we discussed earlier, we don't want to load our files in the browser one by one. It's better to perform one download than a bunch of small downloads from our browser. The manifest files we configure in Rails will automatically concatenate the files listed in them into one file in production. When we are developing our application this might not be the best option since it can make debugging hard but Rails will actually serve each file separately when we are running in development mode. No need to do anything.
 
 Finally, the sprocket directives that power our asset manifests will be covered in detail later.
 
