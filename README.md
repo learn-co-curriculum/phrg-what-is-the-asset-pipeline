@@ -42,7 +42,7 @@ If we put an asset in any of these folders, we can access them via the URL '/ass
 Rails.application.config.assets.paths << "New Path"
 ```
 
-We can put assets anywhere, configure our Asset Path, and access them via a single /assets URL.
+We can put assets anywhere, configure our Asset Path, and access them via a single '/assets' URL.
 
 ## Manifests and Concatenation
 
