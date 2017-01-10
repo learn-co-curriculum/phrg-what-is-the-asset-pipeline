@@ -106,7 +106,7 @@ The Asset Pipeline is definitely more complex then just serving assets from a pu
 3. Preprocessing
 4. Fingerprinting
 
-Finally, definitely check out the DHH Keynote where he introduces the asset pipeline, https://www.youtube.com/watch?v=cGdCI2HhfAU. It's good — I promise.
+Finally, definitely check out the DHH Keynote where he introduces the asset pipeline, [https://www.youtube.com/watch?v=cGdCI2HhfAU](https://www.youtube.com/watch?v=cGdCI2HhfAU). It's good — I promise.
 
 ## Resources
 * [Rails Guides Primer](https://github.com/learn-co-curriculum/what-is-the-asset-pipeline/edit/master/README.md) 
