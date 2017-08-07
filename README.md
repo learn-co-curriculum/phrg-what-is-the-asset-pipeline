@@ -98,7 +98,6 @@ Fingerprinting fixes all these problems by ensuring that filenames are consisten
 Fingerprinting is enabled by default for production and disabled for all other environments. You can enable or disable it in your configuration through the `config.assets.digest` option."
 
 ## Conclusion
-
 The Asset Pipeline is definitely more complex then just serving assets from a public folder and it can be hard to debug. Learning how to use it will pay off in the long run by saving us time and headaches. Just think about all the problems it solves for us.
 
 1. Asset Paths
@@ -106,10 +105,9 @@ The Asset Pipeline is definitely more complex then just serving assets from a pu
 3. Preprocessing
 4. Fingerprinting
 
-Finally, definitely check out the DHH Keynote where he introduces the asset pipeline, https://www.youtube.com/watch?v=cGdCI2HhfAU. It's good — I promise.
+Finally, definitely check out the [keynote where DHH introduces the asset pipeline](https://www.youtube.com/watch?v=cGdCI2HhfAU).
 
 ## Resources
 * [Rails Guides Primer](https://github.com/learn-co-curriculum/what-is-the-asset-pipeline/edit/master/README.md) 
 
 <p class='util--hide'>View <a href='https://learn.co/lessons/what-is-the-asset-pipeline'>What Is The Asset Pipeline</a> on Learn.co and start learning to code for free.</p>
-
