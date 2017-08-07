@@ -55,7 +55,7 @@ File: app/assets/javascripts/application.js
 ```
 When you include the manifest file in your layout with the `javascript_include_tag`, the asset pipeline will look for all of the files listed in the Asset Path. Notice how we require calendar. This file lives in `app/assets/javascripts/calendar.js`, yet we only specified the name and not the full path. The Asset Pipeline will search all the configured paths for a file with the name we provided.
 
-Now that we solved the question of discoverability, let's talk about concatenation. Like we discussed earlier, we don't want to load our files in the browser one by one. It's better to perform one download than a bunch of small downloads from our browser. The manifest files we configure in Rails will automatically concatenate the files listed in them into one file in production. When we are developing our application this might not be the best option since it can make debugging hard but Rails will actually serve each file separately when we are running in development mode. No need to do anything.
+Now that we solved the question of discoverability, let's talk about concatenation. Like we discussed earlier, we don't want to load our files in the browser one by one. It's better to perform one download than a bunch of small downloads from our browser. The manifest files we configure in Rails will automatically concatenate the files listed in them into one file in production. This might not be the best option when we are developing our application since it can make debugging hard. However, Rails will actually serve each file separately when we are running in development mode. No need to do anything.
 
 Finally, the sprocket directives that power our asset manifests will be covered in detail later.
 
