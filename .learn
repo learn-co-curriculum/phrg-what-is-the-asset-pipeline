@@ -5,3 +5,4 @@ languages:
   - language_1
   - language_1
 resources: 0
+parent_template: git@github.com:learn-co-curriculum/what-is-the-asset-pipeline.git

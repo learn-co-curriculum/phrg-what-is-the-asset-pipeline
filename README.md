@@ -111,3 +111,4 @@ Finally, definitely check out the [keynote where DHH introduces the asset pipeli
 * [Rails Guides Primer](https://github.com/learn-co-curriculum/what-is-the-asset-pipeline/edit/master/README.md) 
 
 <p class='util--hide'>View <a href='https://learn.co/lessons/what-is-the-asset-pipeline'>What Is The Asset Pipeline</a> on Learn.co and start learning to code for free.</p>
+<p data-visibility='hidden'>PHRG What Is The Asset Pipeline</p>
